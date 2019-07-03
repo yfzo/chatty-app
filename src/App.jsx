@@ -28,7 +28,15 @@ class App extends Component {
     this.socket = new WebSocket('ws://0.0.0.0:3001/');
     this.socket.addEventListener('open', () => {
       console.log('Connected to server');
-    })
+    });
+  }
+
+  msgHandler(user, content) {
+    const msg = {
+      user: user,
+      content: content
+    }
+    this.socket.send(JSON.stringify(msg));
   }
 
   render() {
@@ -40,11 +48,14 @@ class App extends Component {
           <MessageList messages={this.state.messages} />
           <ChatBar 
             currentUser={this.state.currentUser} 
-            onEnter={(currentUser, messageInput) => {
-              const newMessage = {id: generateRandomId(), username: currentUser, content: messageInput};
-              const messages = this.state.messages.concat(newMessage);
-              this.setState({ messages: messages })
-            }} 
+            // onEnter={(currentUser, messageInput) => {
+            //   const newMessage = {id: generateRandomId(), username: currentUser, content: messageInput};
+            //   const messages = this.state.messages.concat(newMessage);
+            //   this.setState({ messages: messages })
+            // }} 
+            onEnter={(user, content) => {
+              this.msgHandler(user, content);
+            }}
           />
       </div>
     );
