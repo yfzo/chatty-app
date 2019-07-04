@@ -3,9 +3,13 @@ import React, {Component} from 'react';
 class Message extends Component {
   render() {
     if(this.props.message.type === 'incomingMessage') {
+      const usernameStyle = {
+        color: this.props.user.color
+      };
+      
       return (
         <div className="message">
-          <span className="message-username">{this.props.message.user}</span>
+          <span className="message-username" style={usernameStyle}>{this.props.message.user}</span>
           <span className="message-content">{this.props.message.content}</span>
         </div>
       );

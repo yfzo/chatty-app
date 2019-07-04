@@ -8,7 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentUser: {name: 'Anonymous'}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: 'Anonymous', color: '#cb2a51'}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: [],
       numOfUsersOn: 1
     }
@@ -48,7 +48,7 @@ class App extends Component {
     return (
       <div>
         <NavBar numOfUsersOn={this.state.numOfUsersOn} />
-        <MessageList messages={this.state.messages} />
+        <MessageList messages={this.state.messages} user={this.state.currentUser}/>
         <ChatBar 
           currentUser={this.state.currentUser} 
           onEnter={(user, content, type) => {
