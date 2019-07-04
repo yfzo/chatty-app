@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 // import Message from './Message.jsx';
 import MessageList from './MessageList.jsx';
-import { generateRandomId } from './utils';
+import NavBar from './NavBar.jsx';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       currentUser: {name: 'Anonymous'}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: []
+      messages: [],
+      numOfUsersOn: 1
     }
   }
 
@@ -21,7 +22,11 @@ class App extends Component {
     this.socket.onmessage = evt => {
       const msg = JSON.parse(evt.data);
 
-      this.setState({ messages: this.state.messages.concat([msg]) });
+      if(msg.usersNum) {
+        this.setState({numOfUsersOn: msg.usersNum});
+      } else {
+        this.setState({ messages: this.state.messages.concat([msg]) });
+      }
     }
   }
 
@@ -42,16 +47,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-        </nav>
-          <MessageList messages={this.state.messages} />
-          <ChatBar 
-            currentUser={this.state.currentUser} 
-            onEnter={(user, content, type) => {
-              this.msgHandler(user, content, type);
-            }}
-          />
+        <NavBar numOfUsersOn={this.state.numOfUsersOn} />
+        <MessageList messages={this.state.messages} />
+        <ChatBar 
+          currentUser={this.state.currentUser} 
+          onEnter={(user, content, type) => {
+            this.msgHandler(user, content, type);
+          }}
+        />
       </div>
     );
   }
