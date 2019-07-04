@@ -28,6 +28,15 @@ wss.on('connection', (ws) => {
         console.log(`User ${msg.user} said ${msg.content}`);
 
         msg.id = uuid();
+
+        switch(msg.type) {
+            case 'postMessage':
+                msg.type = 'incomingMessage';
+                break;
+            case 'postNotification':
+                msg.type = 'incomingNotification';
+                break;
+        }
         
         wss.clients.forEach(function each(client) {
             if (client.readyState === 1) {

@@ -8,7 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentUser: {name: 'Bob'}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: 'Anonymous'}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: []
     }
   }
@@ -20,22 +20,23 @@ class App extends Component {
     });
     this.socket.onmessage = evt => {
       const msg = JSON.parse(evt.data);
+
       this.setState({ messages: this.state.messages.concat([msg]) });
     }
   }
 
-  msgHandler(user, content) {
-    if (content) {
-      const msg = {
-        user: user,
-        content: content
-      }
-      this.socket.send(JSON.stringify(msg));
-    } else {
-      this.setState({currentUser: {name: user}});
-      console.log(this.state);
+  msgHandler(user, content, type) {
+    const msg = {
+      user: user,
+      content: content,
+      type: type
     }
-    
+
+    if(type === 'postNotification') {
+      this.setState({currentUser: {name: user}});
+      // console.log(this.state);
+    }
+    this.socket.send(JSON.stringify(msg));
   }
 
   render() {
@@ -47,8 +48,8 @@ class App extends Component {
           <MessageList messages={this.state.messages} />
           <ChatBar 
             currentUser={this.state.currentUser} 
-            onEnter={(user, content) => {
-              this.msgHandler(user, content);
+            onEnter={(user, content, type) => {
+              this.msgHandler(user, content, type);
             }}
           />
       </div>

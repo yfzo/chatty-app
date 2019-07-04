@@ -19,15 +19,20 @@ class ChatBar extends Component {
 
     handleSubmit = inputType => (evt) => {
         if(evt.key === 'Enter'){
+            var user, content, type;
+
             if (inputType === 'msg') {
-                var messageInput = evt.target.value;
-                var user = this.refs.username.value;
+                user = this.props.currentUser.name;
+                content = evt.target.value;
+                type = 'postMessage';
             } else if (inputType === 'user') {
-                var user = evt.target.value;
+                user = evt.target.value;
+                content = `${this.props.currentUser.name} has changed their name to ${user}`;
+                type = 'postNotification';
             }
             
             if (this.props.onEnter) {
-                this.props.onEnter(user, messageInput);
+                this.props.onEnter(user, content, type);
             }
             this.setState({message: ''});
         } 
@@ -35,7 +40,7 @@ class ChatBar extends Component {
     render() {
     return (
         <footer className="chatbar">
-            <input className="chatbar-username" value={this.state.user} onChange={this.handleInput('user')} onKeyPress={this.handleSubmit('user')} ref="username" placeholder="Your Name (Optional)" />
+            <input className="chatbar-username" value={this.state.user} onChange={this.handleInput('user')} onKeyPress={this.handleSubmit('user')} placeholder="Your Name (Optional)" />
             <input className="chatbar-message" placeholder="Type a message and hit ENTER" value={this.state.message} onChange={this.handleInput('msg')} onKeyPress={this.handleSubmit('msg')} />
         </footer>
     );
