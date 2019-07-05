@@ -8,9 +8,10 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentUser: {name: 'Anonymous', color: '#cb2a51'}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: 'Anonymous', id: ''}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: [],
-      numOfUsersOn: 1
+      numOfUsersOn: 1,
+      userColors: [{name: 'Jen', color: '#5280aa'}, {name: 'Sam', color: '#d4abc7'}]
     }
   }
 
@@ -21,11 +22,12 @@ class App extends Component {
     });
     this.socket.onmessage = evt => {
       const msg = JSON.parse(evt.data);
-
+      // console.log('msg from client:', msg)
       if(msg.usersNum) {
         this.setState({numOfUsersOn: msg.usersNum});
       } else {
         this.setState({ messages: this.state.messages.concat([msg]) });
+        // console.log('all messages', this.state.messages)
       }
     }
   }
@@ -48,7 +50,7 @@ class App extends Component {
     return (
       <div>
         <NavBar numOfUsersOn={this.state.numOfUsersOn} />
-        <MessageList messages={this.state.messages} user={this.state.currentUser}/>
+        <MessageList messages={this.state.messages} user={this.state.currentUser} colors={this.state.userColors} />
         <ChatBar 
           currentUser={this.state.currentUser} 
           onEnter={(user, content, type) => {

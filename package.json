@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,7 @@
     "webpack-dev-server": "2.3.0"
   },
   "dependencies": {
+    "randomcolor": "^0.5.4",
     "react": "15.4.2",
     "react-dom": "15.4.2"
   }
