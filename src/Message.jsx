@@ -7,10 +7,19 @@ class Message extends Component {
         color: this.props.message.color
       }
 
+      //checks if message content has an image url, if so render image and remove url from text
+      const imgURL = this.props.message.content.match(/http\S+(jpg|png|gif)\b/g);
+      if(imgURL) {
+        var content = this.props.message.content.replace(/http\S+(jpg|png|gif)\b/g, '');
+      } else {
+        content = this.props.message.content;
+      }
+
       return (
         <div className="message">
           <span className="message-username" style={usernameStyle} >{this.props.message.user}</span>
-          <span className="message-content">{this.props.message.content}</span>
+          <span className="message-content">{content}<img src={imgURL} className="msgImg"/></span>
+          
         </div>
       );
     } else if (this.props.message.type === 'incomingNotification') {

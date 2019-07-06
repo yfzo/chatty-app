@@ -11,7 +11,7 @@ class App extends Component {
       currentUser: {name: 'Anonymous', id: ''}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: [],
       numOfUsersOn: 1,
-      userColors: [{name: 'Jen', color: '#5280aa'}, {name: 'Sam', color: '#d4abc7'}]
+      // userColors: [{name: 'Jen', color: '#5280aa'}, {name: 'Sam', color: '#d4abc7'}]
     }
   }
 
