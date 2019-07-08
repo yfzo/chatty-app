@@ -23,5 +23,5 @@ open http://localhost:3000
 
 ### Screenshots
 
-!["Messages with only text and users changing their usernames"] (https://github.com/yfzo/chatty-app/blob/master/docs/chatty-messages-text.png?raw=true)
-!["Messages with images"] (https://github.com/yfzo/chatty-app/blob/master/docs/chatty-messages-image.png?raw=true)
+!["Messages with only text and users changing their usernames"](https://github.com/yfzo/chatty-app/blob/master/docs/chatty-messages-text.png?raw=true)
+!["Messages with images"](https://github.com/yfzo/chatty-app/blob/master/docs/chatty-messages-image.png?raw=true)
