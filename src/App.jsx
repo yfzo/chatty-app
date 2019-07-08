@@ -19,7 +19,7 @@ class App extends Component {
             console.log('Connected to server');
         });
 
-        //
+        //update state after receiving data from server
         this.socket.onmessage = evt => {
             const msg = JSON.parse(evt.data);
 
