@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const SocketServer = require('ws').Server;
 const uuid = require('uuid/v4');
@@ -28,14 +29,12 @@ SocketServer.prototype.broadcast = function(msg) {
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
     console.log('Client connected');
+
+    //display number of users online
     let numOfUsersOn = wss.clients.size;
     wss.broadcast({usersNum: numOfUsersOn});
     
-    const userId = uuid();
     const color = randomColor();
-    // const smth = 'hi';
-    // ws.send(JSON.stringify({id: userId, color: color, smth: smth}));
-    // console.log(userId, color);
 
     // Set up a callback for when a client closes the socket. This usually means they closed their browser.
     ws.on('close', () => {
@@ -43,6 +42,7 @@ wss.on('connection', (ws) => {
         wss.broadcast({usersNum: wss.clients.size});
     });
 
+    //assign unique message id for key, colour for particular client/user, and appropriate message type before broadcasting
     ws.onmessage = evt => {
         const msg = JSON.parse(evt.data);
         console.log(`User ${msg.user} said ${msg.content}`);
@@ -58,13 +58,7 @@ wss.on('connection', (ws) => {
                 msg.type = 'incomingNotification';
                 break;
         }
-        console.log('msg:', msg)
-        // wss.clients.forEach(function each(client) {
-        //     if (client.readyState === 1) {
-        //         // console.log(msg);
-        //         client.send(JSON.stringify(msg));
-        //     }
-        // })
+
         wss.broadcast(msg);
     }
 });
