@@ -20,3 +20,8 @@ open http://localhost:3000
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 * [Random Color](https://github.com/davidmerfield/randomColor)
+
+### Screenshots
+
+!["Messages with only text and users changing their usernames"] (https://github.com/yfzo/chatty-app/blob/master/docs/chatty-messages-text.png?raw=true)
+!["Messages with images"] (https://github.com/yfzo/chatty-app/blob/master/docs/chatty-messages-image.png?raw=true)
