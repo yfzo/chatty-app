@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ChatBar from './ChatBar.jsx';
-// import Message from './Message.jsx';
 import MessageList from './MessageList.jsx';
 import NavBar from './NavBar.jsx';
 
@@ -19,6 +18,8 @@ class App extends Component {
         this.socket.addEventListener('open', () => {
             console.log('Connected to server');
         });
+
+        //
         this.socket.onmessage = evt => {
             const msg = JSON.parse(evt.data);
 
@@ -30,6 +31,8 @@ class App extends Component {
         }
     }
 
+    //processes the message/username input from Chatbar; updates currentUser if new username entered.
+    //sends message/notification to server to process and broadcast back to all users
     msgHandler(user, content, type) {
         const msg = {
             user: user,

@@ -16,6 +16,7 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server });
 
+//broadcast to all users that are online
 SocketServer.prototype.broadcast = function(msg) {
     this.clients.forEach((client) => {
         if (client.readyState === 1) {
@@ -42,7 +43,7 @@ wss.on('connection', (ws) => {
         wss.broadcast({usersNum: wss.clients.size});
     });
 
-    //assign unique message id for key, colour for particular client/user, and appropriate message type before broadcasting
+    //assign unique message id for key, colour for particular client/user, and appropriate message type before broadcasting after receiving message from client
     ws.onmessage = evt => {
         const msg = JSON.parse(evt.data);
         console.log(`User ${msg.user} said ${msg.content}`);
