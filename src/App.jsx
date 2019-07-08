@@ -48,7 +48,7 @@ class App extends Component {
         return (
             <div>
                 <NavBar numOfUsersOn={this.state.numOfUsersOn} />
-                <MessageList messages={this.state.messages} user={this.state.currentUser} colors={this.state.userColors} />
+                <MessageList messages={this.state.messages} user={this.state.currentUser} />
                 <ChatBar
                     currentUser={this.state.currentUser}
                     onEnter={(user, content, type) => {
